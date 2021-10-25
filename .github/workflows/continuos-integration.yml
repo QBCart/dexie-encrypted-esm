@@ -74,8 +74,6 @@ jobs:
         working-directory: .
         shell: bash
         run: npm run build
-        env:
-          SNOWPACK_PUBLIC_STREAMING_URL: ${{ fromJSON(secrets.DEV_ESM).storageUrl }}
 
       #############
       # Run Tests #
