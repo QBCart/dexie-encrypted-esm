@@ -2,7 +2,7 @@
 
 Transparent encryption for IndexedDB using Dexie.
 
-An ESM build of dexie-encrypted by @mark43.
+An ESM build of [dexie-encrypted](https://www.npmjs.com/package/dexie-encrypted) by [mark43](https://github.com/mark43/dexie-encrypted).
 
 | Continuos Integration | Release | NPM |
 | --- | --- | --- |
