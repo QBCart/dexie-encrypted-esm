@@ -1,1 +1,6 @@
+# generated output
 node_modules
+publish_esm
+
+# Apple Snooping File
+.DS_Store

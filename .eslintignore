@@ -1,11 +1,5 @@
-.npmrc
-
 # generated output
 node_modules
-build
-.snowpack
-dist
-publish_types
 publish_esm
 
 # Apple Snooping File
