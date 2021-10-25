@@ -18,7 +18,7 @@ export function applyEncryptionMiddleware<T extends Dexie>(
   tableSettings: CryptoSettings<T>,
   onKeyChange: (db: T) => Promise<any>,
   _nonceOverrideForTesting?: Uint8Array
-) {
+): void {
   applyMiddlewareWithCustomEncryption({
     db,
     encryptionKey,

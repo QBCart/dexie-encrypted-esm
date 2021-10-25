@@ -8,7 +8,7 @@
     "paths": {},
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "importsNotUsedAsValues": "error",
+    "importsNotUsedAsValues": "preserve",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

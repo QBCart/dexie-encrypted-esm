@@ -1,8 +1,10 @@
 import nacl from 'tweetnacl';
 import { encode, decode } from '@stablelib/utf8';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Typeson from 'typeson';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import builtinTypes from 'typeson-registry/dist/presets/builtin';
 
@@ -12,7 +14,7 @@ export function encryptWithNacl(
   key: Uint8Array,
   object: any,
   nonce?: Uint8Array
-) {
+): Uint8Array {
   if (nonce === undefined) {
     nonce = nacl.randomBytes(nacl.secretbox.nonceLength);
   }
@@ -27,7 +29,7 @@ export function encryptWithNacl(
 export function decryptWithNacl(
   encryptionKey: Uint8Array,
   encryptedArray: Uint8Array
-) {
+): any {
   const nonce = encryptedArray.slice(0, nacl.secretbox.nonceLength);
   const message = encryptedArray.slice(
     nacl.secretbox.nonceLength,

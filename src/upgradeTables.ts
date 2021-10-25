@@ -29,8 +29,9 @@ export async function upgradeTables<T extends Dexie>(
   encrypt: EncryptionMethod,
   decrypt: DecryptionMethod,
   nonceOverride: Uint8Array | undefined
-) {
+): Promise<void[]> {
   const unencryptedDb = new Dexie(db.name);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const version = db._versions.find((v) => v._cfg.version === db.verno);
   unencryptedDb.version(db.verno).stores(version._cfg.storesSource);
@@ -58,12 +59,8 @@ export async function upgradeTables<T extends Dexie>(
         // no more to compare, the db needs to be encrypted/decrypted
       } else {
         // both non-strings. Figure out if they're the same.
-        // @ts-ignore will figure out later
         if (newSetting.type === oldSetting.type) {
-          if (
-            // @ts-ignore will figure out later
-            compareArrays(newSetting.fields, oldSetting.fields)
-          ) {
+          if (compareArrays(newSetting.fields, oldSetting.fields)) {
             // no upgrade needed.
             return;
           }
@@ -72,6 +69,8 @@ export async function upgradeTables<T extends Dexie>(
 
       await table.toCollection().modify(function (entity: TableOf<T>, ref) {
         const decrypted = decryptEntity(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           entity,
           oldSetting,
           encryptionKey,

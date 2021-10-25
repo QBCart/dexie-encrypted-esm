@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/QBCart/dexie-encrypted-esm#readme",
   "scripts": {
-    "build": "snowpack build",
+    "build": "snowpack build && tsc",
     "lint": "eslint src/**/*.ts",
     "format:check": "prettier --check .",
     "format:fix": "prettier . --write",

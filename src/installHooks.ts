@@ -16,7 +16,7 @@ export function encryptEntity<T extends Dexie.Table>(
   encryptionKey: Uint8Array,
   performEncryption: EncryptionMethod,
   nonceOverride?: Uint8Array
-) {
+): Partial<TableType<T>> {
   if (rule === undefined) {
     return entity;
   }
@@ -53,7 +53,9 @@ export function encryptEntity<T extends Dexie.Table>(
     for (const key in entity) {
       if (
         key !== primaryKey &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
+        // eslint-disable-next-line no-prototype-builtins
         entity.hasOwnProperty(key) &&
         indices.includes(key) === false &&
         whitelist.includes(key) === false
@@ -65,6 +67,7 @@ export function encryptEntity<T extends Dexie.Table>(
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   dataToStore.__encryptedData = performEncryption(
     encryptionKey,
@@ -79,7 +82,7 @@ export function decryptEntity<T extends Dexie.Table>(
   rule: EncryptionOption<T> | undefined,
   encryptionKey: Uint8Array,
   performDecryption: DecryptionMethod
-) {
+): TableType<T> {
   if (rule === undefined || entity === undefined || !entity.__encryptedData) {
     return entity;
   }
@@ -117,7 +120,7 @@ export function installHooks<T extends Dexie>(
   performEncryption: EncryptionMethod,
   performDecryption: DecryptionMethod,
   nonceOverride: Uint8Array | undefined
-) {
+): T {
   // this promise has to be resolved in order for the database to be open
   // but we also need to add the hooks before the db is open, so it's
   // guaranteed to happen before the key is actually needed.

@@ -1,9 +1,7 @@
 import Dexie from 'dexie';
 import {
-  CryptoSettings,
   CryptoSettingsTable,
   TableType,
-  CryptoSettingsTableType,
   EncryptionMethod,
   DecryptionMethod
 } from './types';

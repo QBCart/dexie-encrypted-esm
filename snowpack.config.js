@@ -20,8 +20,8 @@ module.exports = {
   optimize: {
     entrypoints: ['index.js'],
     target: 'es2020',
-    minify: true,
-    bundle: true,
+    minify: false,
+    bundle: false,
     sourcemap: false
   },
   alias: {},

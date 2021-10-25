@@ -15,6 +15,7 @@ const override = Dexie.override;
 function overrideParseStoresSpec(origFunc: any) {
   return function (stores: any, dbSchema: any) {
     stores._encryptionSettings = '++id';
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return origFunc.call(this, stores, dbSchema);
   };
@@ -37,7 +38,6 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
       );
     }
     keyPromise = Promise.resolve(encryptionKey);
-    // @ts-ignore I want a runtime check below in case you're not using TS
   } else if ('then' in encryptionKey) {
     keyPromise = Dexie.Promise.resolve(encryptionKey);
   } else {
@@ -46,8 +46,10 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   db.Version.prototype._parseStoresSpec = override(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     db.Version.prototype._parseStoresSpec,
     overrideParseStoresSpec
@@ -74,7 +76,7 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
 
   db.on('ready', async () => {
     try {
-      let encryptionSettings = db.table(
+      const encryptionSettings = db.table(
         '_encryptionSettings'
       ) as CryptoSettingsTable<T>;
       let oldSettings: CryptoSettingsTableType<T> | undefined;
@@ -139,7 +141,7 @@ export function clearAllTables(db: Dexie) {
 }
 
 export async function clearEncryptedTables<T extends Dexie>(db: T) {
-  let encryptionSettings = (await db
+  const encryptionSettings = (await db
     .table('_encryptionSettings')
     .toCollection()
     .last()
