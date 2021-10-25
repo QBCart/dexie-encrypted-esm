@@ -2,7 +2,7 @@
 
 ### New
 
-- none
+- First ESM beta release of the [dexie-encrypted](https://www.npmjs.com/package/dexie-encrypted) package.
 
 ### Fixes
 
