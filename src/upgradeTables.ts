@@ -1,12 +1,12 @@
-import Dexie from "dexie";
+import Dexie from 'dexie';
 import {
   TableOf,
   CryptoSettings,
   cryptoOptions,
   EncryptionMethod,
-  DecryptionMethod,
-} from "./types";
-import { encryptEntity, decryptEntity } from "./installHooks";
+  DecryptionMethod
+} from './types';
+import { encryptEntity, decryptEntity } from './installHooks';
 
 function compareArrays(a: any[], b: any[]) {
   if (a.length !== b.length) {

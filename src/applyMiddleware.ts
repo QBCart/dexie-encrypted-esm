@@ -1,20 +1,20 @@
-import Dexie from "dexie";
+import Dexie from 'dexie';
 import {
   CryptoSettingsTable,
   CryptoSettingsTableType,
-  EncryptDatabaseParams,
-} from "./types";
+  EncryptDatabaseParams
+} from './types';
 
-import { upgradeTables } from "./upgradeTables";
-import { checkForKeyChange } from "./checkForKeyChange";
-import { installHooks } from "./installHooks";
+import { upgradeTables } from './upgradeTables';
+import { checkForKeyChange } from './checkForKeyChange';
+import { installHooks } from './installHooks';
 
 // Import some usable helper functions
 const override = Dexie.override;
 
 function overrideParseStoresSpec(origFunc: any) {
   return function (stores: any, dbSchema: any) {
-    stores._encryptionSettings = "++id";
+    stores._encryptionSettings = '++id';
     // @ts-ignore
     return origFunc.call(this, stores, dbSchema);
   };
@@ -27,22 +27,22 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
   onKeyChange,
   encrypt,
   decrypt,
-  _nonceOverrideForTesting,
+  _nonceOverrideForTesting
 }: EncryptDatabaseParams<T>) {
   let keyPromise: Promise<Uint8Array>;
   if (encryptionKey instanceof Uint8Array) {
     if (encryptionKey.length !== 32) {
       throw new Error(
-        "Dexie-encrypted requires a Uint8Array of length 32 for an encryption key."
+        'Dexie-encrypted requires a Uint8Array of length 32 for an encryption key.'
       );
     }
     keyPromise = Promise.resolve(encryptionKey);
     // @ts-ignore I want a runtime check below in case you're not using TS
-  } else if ("then" in encryptionKey) {
+  } else if ('then' in encryptionKey) {
     keyPromise = Dexie.Promise.resolve(encryptionKey);
   } else {
     throw new Error(
-      "Dexie-encrypted requires a Uint8Array of length 32 for an encryption key."
+      'Dexie-encrypted requires a Uint8Array of length 32 for an encryption key.'
     );
   }
 
@@ -59,7 +59,7 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
       db.version(db.verno).stores({});
     } catch (error) {
       throw new Error(
-        "Dexie-encrypt: The call to encrypt() cannot be done on an open database"
+        'Dexie-encrypt: The call to encrypt() cannot be done on an open database'
       );
     }
   }
@@ -72,10 +72,10 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
     _nonceOverrideForTesting
   );
 
-  db.on("ready", async () => {
+  db.on('ready', async () => {
     try {
       let encryptionSettings = db.table(
-        "_encryptionSettings"
+        '_encryptionSettings'
       ) as CryptoSettingsTable<T>;
       let oldSettings: CryptoSettingsTableType<T> | undefined;
       try {
@@ -92,7 +92,7 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
         encryptionKey.length !== 32
       ) {
         throw new Error(
-          "Dexie-encrypted requires a Uint8Array of length 32 for a encryption key."
+          'Dexie-encrypted requires a Uint8Array of length 32 for a encryption key.'
         );
       }
 
@@ -121,7 +121,7 @@ export function applyMiddlewareWithCustomEncryption<T extends Dexie>({
           encryptionKey,
           [1, 2, 3, 4, 5],
           new Uint8Array(24)
-        ),
+        )
       });
       return undefined;
     } catch (e) {
@@ -140,7 +140,7 @@ export function clearAllTables(db: Dexie) {
 
 export async function clearEncryptedTables<T extends Dexie>(db: T) {
   let encryptionSettings = (await db
-    .table("_encryptionSettings")
+    .table('_encryptionSettings')
     .toCollection()
     .last()
     .catch(() => {

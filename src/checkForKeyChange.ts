@@ -1,12 +1,12 @@
-import Dexie from "dexie";
+import Dexie from 'dexie';
 import {
   CryptoSettings,
   CryptoSettingsTable,
   TableType,
   CryptoSettingsTableType,
   EncryptionMethod,
-  DecryptionMethod,
-} from "./types";
+  DecryptionMethod
+} from './types';
 
 export function checkForKeyChange<T extends Dexie>(
   db: T,

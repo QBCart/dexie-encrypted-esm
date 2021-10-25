@@ -1,17 +1,17 @@
-import Dexie from "dexie";
+import Dexie from 'dexie';
 
 export const tableEncryptionOptions = {
-  NON_INDEXED_FIELDS: "NON_INDEXED_FIELDS",
-  UNENCRYPTED_LIST: "UNENCRYPTED_LIST",
-  ENCRYPT_LIST: "ENCRYPT_LIST",
+  NON_INDEXED_FIELDS: 'NON_INDEXED_FIELDS',
+  UNENCRYPTED_LIST: 'UNENCRYPTED_LIST',
+  ENCRYPT_LIST: 'ENCRYPT_LIST'
 } as const;
 
 export type TableType<T> = T extends Dexie.Table<infer U> ? U : never;
 
 export type EncryptionOption<T extends Dexie.Table> =
-  | "NON_INDEXED_FIELDS"
+  | 'NON_INDEXED_FIELDS'
   | {
-      type: "UNENCRYPTED_LIST" | "ENCRYPT_LIST";
+      type: 'UNENCRYPTED_LIST' | 'ENCRYPT_LIST';
       fields: (keyof TableType<T>)[];
     };
 

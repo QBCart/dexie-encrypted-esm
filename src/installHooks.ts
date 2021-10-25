@@ -1,4 +1,4 @@
-import Dexie, { DBCoreTable, DBCoreIndex, IndexSpec } from "dexie";
+import Dexie, { DBCoreTable, DBCoreIndex, IndexSpec } from 'dexie';
 import {
   CryptoSettings,
   TablesOf,
@@ -6,8 +6,8 @@ import {
   EncryptionOption,
   cryptoOptions,
   EncryptionMethod,
-  DecryptionMethod,
-} from "./types";
+  DecryptionMethod
+} from './types';
 
 export function encryptEntity<T extends Dexie.Table>(
   table: DBCoreTable | T,
@@ -27,7 +27,7 @@ export function encryptEntity<T extends Dexie.Table>(
   const dataToStore: Partial<TableType<T>> = {};
 
   const primaryKey =
-    "primKey" in table.schema
+    'primKey' in table.schema
       ? table.schema.primKey.keyPath
       : table.schema.primaryKey.keyPath;
 
@@ -106,7 +106,7 @@ export function decryptEntity<T extends Dexie.Table>(
 
   return {
     ...unencryptedFields,
-    ...decrypted,
+    ...decrypted
   } as TableType<T>;
 }
 
@@ -127,8 +127,8 @@ export function installHooks<T extends Dexie>(
   });
 
   return db.use({
-    stack: "dbcore",
-    name: "encryption",
+    stack: 'dbcore',
+    name: 'encryption',
     level: 0,
     create(downlevelDatabase) {
       return {
@@ -173,23 +173,23 @@ export function installHooks<T extends Dexie>(
                   continue: {
                     get() {
                       return cursor.continue;
-                    },
+                    }
                   },
                   continuePrimaryKey: {
                     get() {
                       return cursor.continuePrimaryKey;
-                    },
+                    }
                   },
                   key: {
                     get() {
                       return cursor.key;
-                    },
+                    }
                   },
                   value: {
                     get() {
                       return decrypt(cursor.value);
-                    },
-                  },
+                    }
+                  }
                 });
               });
             },
@@ -206,26 +206,26 @@ export function installHooks<T extends Dexie>(
                 return Dexie.Promise.all(res.result.map(decrypt)).then(
                   (result) => ({
                     ...res,
-                    result,
+                    result
                   })
                 );
               });
             },
             mutate(req) {
-              if (req.type === "add" || req.type === "put") {
+              if (req.type === 'add' || req.type === 'put') {
                 return Dexie.Promise.all(req.values.map(encrypt)).then(
                   (values) =>
                     table.mutate({
                       ...req,
-                      values,
+                      values
                     })
                 );
               }
               return table.mutate(req);
-            },
+            }
           };
-        },
+        }
       };
-    },
+    }
   });
 }

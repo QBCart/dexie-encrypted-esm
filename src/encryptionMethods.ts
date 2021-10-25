@@ -1,10 +1,10 @@
-import nacl from "tweetnacl";
-import { encode, decode } from "@stablelib/utf8";
+import nacl from 'tweetnacl';
+import { encode, decode } from '@stablelib/utf8';
 
 // @ts-ignore
-import Typeson from "typeson";
+import Typeson from 'typeson';
 // @ts-ignore
-import builtinTypes from "typeson-registry/dist/presets/builtin";
+import builtinTypes from 'typeson-registry/dist/presets/builtin';
 
 const tson = new Typeson().register([builtinTypes]);
 
@@ -35,7 +35,7 @@ export function decryptWithNacl(
   );
   const rawDecrypted = nacl.secretbox.open(message, nonce, encryptionKey);
   if (rawDecrypted === null) {
-    throw new Error("Dexie-encrypted was unable to decrypt an entity.");
+    throw new Error('Dexie-encrypted was unable to decrypt an entity.');
   }
   return tson.parse(decode(rawDecrypted));
 }
