@@ -83,10 +83,10 @@ jobs:
           cp package.json publish_esm
           cp README.md publish_esm
 
-      ########################
-      # Publish Types To NPM #
-      ########################
-      - name: Publish Types To NPM
+      ##################
+      # Publish To NPM #
+      ##################
+      - name: Publish To NPM
         working-directory: publish_esm
         shell: bash
         run: |
