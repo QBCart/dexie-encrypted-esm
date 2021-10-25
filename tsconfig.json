@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./",
+    "rootDir": "src",
+    "paths": {},
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "importsNotUsedAsValues": "error",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": false,
+    "declarationDir": "publish_esm",
+    "emitDeclarationOnly": true,
+    "sourceMap": false,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noImplicitAny": false,
+    "jsx": "react"
+  },
+  "include": ["src"]
+}
