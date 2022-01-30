@@ -83,10 +83,14 @@ export function decryptEntity<T extends Dexie.Table>(
   encryptionKey: Uint8Array,
   performDecryption: DecryptionMethod
 ): TableType<T> {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   if (rule === undefined || entity === undefined || !entity.__encryptedData) {
     return entity;
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { __encryptedData, ...unencryptedFields } = entity;
 
   let decrypted = performDecryption(encryptionKey, __encryptedData);

@@ -16,7 +16,9 @@ export function checkForKeyChange<T extends Dexie>(
 ) {
   try {
     const changeDetectionObj = oldSettings
-      ? oldSettings.keyChangeDetection
+      ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        oldSettings.keyChangeDetection
       : null;
     if (changeDetectionObj) {
       decrypt(encryptionKey, changeDetectionObj);
