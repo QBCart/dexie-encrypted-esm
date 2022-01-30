@@ -2,7 +2,7 @@
 
 ### New
 
-- none
+- Official release.
 
 ### Fixes
 
