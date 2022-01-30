@@ -1,0 +1,21 @@
+name: Publish NPM
+
+on:
+  push:
+    branches:
+      - 'v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+############
+# Set Jobs #
+############
+jobs:
+  ##############
+  # Define Job #
+  ##############
+  publish-npm:
+    name: Publish NPM
+    uses: QBCart/Reusable-Workflows/.github/workflows/publish-npm.yml@main
+    secrets:
+      NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
